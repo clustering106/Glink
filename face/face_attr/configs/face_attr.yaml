@@ -1,0 +1,74 @@
+
+# Train and Val data list
+# train: /data/attr/aligned/train_0428.txt
+# val: /data/attr/aligned/val_0428.txt
+# train: /home/glink2022/qkl/data/aligned/train_celeb_eye.txt
+# val: /home/glink2022/qkl/data/aligned/val_celeb_eye.txt
+
+train: /home/zhangkai/Myproject/face_attr/dataset/train0705.txt
+val: /home/zhangkai/Myproject/face_attr/dataset/test0705.txt
+# Class Names
+names: ['pretty', 'blur', 'glass', 'makeup', 'gender', 'mouthopen', 'smile', 'eyeopen', 'isface', 'block', 'yaw', 'pitch', 'age', 'mask']
+# names: ['score', 'gender', 'age',  'lex', 'ley', 'rex', 'rey', 'nosex', 'nosey', 'lmx', 'lmy', 'rmx', 'rmy', 'glass', 'smile', 'hat', 'mask']
+
+# Backbone
+backbone: 'FaceAttr'
+width_multiple: 1.0  # layer channel multiple
+image_size: 64
+
+# Epochs
+total_epochs: 60 # total epochs 500
+warmup_epochs: 4  # warmup epochs
+batch_size: 256   # batch size no accumulate
+workers: 4        # num thread for data load
+
+# Hyperparameters
+optimizer: 'adam'        # optimizer sgd or adam
+scheduler: 'one_cycle'  # scheduler linear_lr or one_cycle or multi_step
+lr_base: 0.01           # initial learning rate (SGD=1E-2, Adam=1E-3)
+lr_final: 0.000001           # final OneCycleLR learning rate (lr0 * lr_final)
+momentum: 0.9           # SGD momentum/Adam beta1
+weight_decay: 0.0001    # optimizer weight decay 1e-4
+
+# Loss Gain
+# mask_gain: 1.0    # mask loss gain 
+# pretty_gain: 0.5
+# blur_gain: 0.5  
+# glass_gain: 2.0     #0.3
+# makeup_gain: 0.5
+# gender_gain: 0.5    #1.0
+# mouthopen_gain: 0.5
+# smile_gain: 1.0 #0.5
+# eyeopen_gain: 0.5 
+# isface_gain: 0.3
+# block_gain: 0.2 
+# yaw_gain: 0.1
+# age_gain: 0.1  #0.1
+
+mask_gain: 1.0    # mask loss gain 
+pretty_gain: 0.5
+blur_gain: 0.5  
+glass_gain: 2.0    
+makeup_gain: 0.5
+gender_gain: 0.5   #1
+mouthopen_gain: 0.5
+smile_gain: 0.5 
+eyeopen_gain: 0.5 
+isface_gain: 0.3
+block_gain: 0.2 
+yaw_gain: 1  #0.1
+pitch_gain: 1 
+age_gain: 1 #0.3 
+
+
+# Augmentation
+hsv_h: 0.01       # image HSV-Hue augmentation
+hsv_s: 0.5        # image HSV-Saturation augmentation
+hsv_v: 0.3        # image HSV-Value augmentation
+degrees: 25.0     # image rotation (+/- deg)
+translate: 0.15   # image translation (+/-)
+scale: 0.1        # image scale (+/- gain) we change to random.uniform(1, 1 + scale * 3) to get crop
+shear: 2.0        # image shear (+/- deg)
+perspective: 0.0  # image perspective (+/-), range 0-0.001
+flipud: 0.0       # image flip up-down (probability not use)
+fliplr: 0.5       # image flip left-right (probability)
